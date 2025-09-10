@@ -15,7 +15,7 @@ class Monastery extends StatelessWidget {
         children: [
           Expanded(
             child: ModelViewer(
-              src: 'assets/european_medieval_castle_3d_scan.glb', // Your 3D model path
+              src: 'assets/sikkim_monastery_lowpoly.glb', // Your 3D model path
               alt: "A 3D model of the Monastery",
               backgroundColor: Colors.transparent,
               ar: true,

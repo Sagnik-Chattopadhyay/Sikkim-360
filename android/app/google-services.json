@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "897583746146",
+    "project_id": "sikkim-360-app",
+    "storage_bucket": "sikkim-360-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897583746146:android:48d8da850b70c09643953b",
+        "android_client_info": {
+          "package_name": "com.example.sikkim_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfwtGTNqXQv49TtQGF8e9PP2pQb8zUkEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
