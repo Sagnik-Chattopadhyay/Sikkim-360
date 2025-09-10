@@ -45,4 +45,7 @@ app.*.map.json
 /android/app/release
 
 #models
-assets/
+assets/audio
+assets/models
+
+lib/firebase_options.dart
