@@ -11,12 +11,12 @@ class GeoAudioService {
     {
       'latitude': 22.5783131,
       'longitude': 88.4758096,
-      'audio': 'audio/sculpture1.mp3',
+      // 'audio': 'audio/sculpture1.mp3',
     },
     {
       'latitude': 22.6784,
       'longitude': 88.5754,
-      'audio': 'audio/sculpture2.mp3',
+      // 'audio': 'audio/sculpture2.mp3',
     },
   ];
 

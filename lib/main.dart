@@ -12,7 +12,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -24,7 +23,6 @@ class MyApp extends StatelessWidget {
 
 class Homescreen extends StatelessWidget {
   const Homescreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,15 +32,10 @@ class Homescreen extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.teal,
-              ),
+              decoration: BoxDecoration(color: Colors.teal),
               child: Text(
                 'Explore Sikkim',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
             ListTile(
@@ -51,7 +44,9 @@ class Homescreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LocationScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => const LocationScreen(),
+                  ),
                 );
               },
             ),
@@ -89,10 +84,7 @@ class Homescreen extends StatelessWidget {
         ),
       ),
       body: const Center(
-        child: Text(
-          'Welcome to Sikkim App!',
-          style: TextStyle(fontSize: 20),
-        ),
+        child: Text('Welcome to Sikkim App!', style: TextStyle(fontSize: 20)),
       ),
     );
   }

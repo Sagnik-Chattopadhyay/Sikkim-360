@@ -1,14 +1,37 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    // Flutter Gradle plugin must come last
     id("dev.flutter.flutter-gradle-plugin")
 }
 
 android {
     namespace = "com.example.sikkim_app"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35  // Must be 35 for androidx.activity 1.10.1+
+
     ndkVersion = flutter.ndkVersion
+
+    defaultConfig {
+        applicationId = "com.example.sikkim_app"
+        minSdk = flutter.minSdkVersion  // ML Kit + Camera require at least 21
+        targetSdk = 35
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        debug {
+            isMinifyEnabled = false      // Disable code shrinking for debug
+            isShrinkResources = false    // Disable resource shrinking for debug
+        }
+        release {
+            isMinifyEnabled = true       // Enable code shrinking for release
+            isShrinkResources = true     // Enable resource shrinking for release
+            signingConfig = signingConfigs.getByName("debug")
+            // Optional: configure ProGuard rules if needed
+            // proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -16,27 +39,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-    }
-
-    defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.sikkim_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
-    }
-
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
-        }
+        jvmTarget = "11"
     }
 }
 
