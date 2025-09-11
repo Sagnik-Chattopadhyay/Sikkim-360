@@ -51,3 +51,7 @@ assets/
 summarizer-env/
 venv/
 .env/
+
+# Ignore system files
+__pycache__/
+*.pyc
