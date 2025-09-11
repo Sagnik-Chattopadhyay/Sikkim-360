@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -14,34 +15,27 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  /// Signup user with Firebase Auth
-  Future<void> _createUserWithEmailAndPassword() async {
-    try {
-      final userCredential =
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+  String role = "User"; // default role
 
-      // Optionally update display name
-      await userCredential.user?.updateDisplayName(_nameController.text);
+  Future<void> createUserWithEmailAndPassword() async {
+    final userCredential =
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
 
-      print("✅ User created: ${userCredential.user?.email}");
-    } on FirebaseAuthException catch (e) {
-      String message = "Signup failed";
-      if (e.code == 'weak-password') {
-        message = "The password is too weak.";
-      } else if (e.code == 'email-already-in-use') {
-        message = "This email is already in use.";
-      } else if (e.code == 'invalid-email') {
-        message = "The email address is invalid.";
-      }
+    // save extra data (name + role) in Firestore
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(userCredential.user!.uid)
+        .set({
+      "name": _nameController.text.trim(),
+      "email": _emailController.text.trim(),
+      "role": role,
+    });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
-      return; // stop execution if error
-    }
+    // update Firebase displayName
+    await userCredential.user!.updateDisplayName(_nameController.text.trim());
   }
 
   @override
@@ -60,7 +54,7 @@ class _SignupPageState extends State<SignupPage> {
               TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(
-                  labelText: " Usename",
+                  labelText: "Full Name",
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.person),
                 ),
@@ -92,10 +86,36 @@ class _SignupPageState extends State<SignupPage> {
                   prefixIcon: Icon(Icons.lock),
                 ),
                 obscureText: true,
-                validator: (value) =>
-                value != null && value.length < 6
+                validator: (value) => value != null && value.length < 6
                     ? "Password must be at least 6 characters"
                     : null,
+              ),
+              const SizedBox(height: 16),
+
+              // Role selection
+              const Text(
+                "Are you a:",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              RadioListTile(
+                title: const Text("User"),
+                value: "User",
+                groupValue: role,
+                onChanged: (value) {
+                  setState(() {
+                    role = value!;
+                  });
+                },
+              ),
+              RadioListTile(
+                title: const Text("Local"),
+                value: "Local",
+                groupValue: role,
+                onChanged: (value) {
+                  setState(() {
+                    role = value!;
+                  });
+                },
               ),
               const SizedBox(height: 24),
 
@@ -107,10 +127,8 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    await _createUserWithEmailAndPassword();
-
-                    // Pass the username back to main.dart
-                    Navigator.pop(context, _nameController.text);
+                    await createUserWithEmailAndPassword();
+                    Navigator.pop(context); // back to auth gate
                   }
                 },
                 child: const Text("Sign Up"),

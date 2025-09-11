@@ -5,9 +5,40 @@ import 'package:sikkim_app/manuscripts.dart';
 import 'package:sikkim_app/location.dart';
 import 'package:sikkim_app/monastery.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sikkim_app/event_adder.dart';
+import 'package:sikkim_app/event_viewer.dart';
 
-class Homescreen extends StatelessWidget {
+
+
+class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
+
+  @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+  String? role;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserRole();
+  }
+
+  Future<void> fetchUserRole() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final doc = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .get();
+      setState(() {
+        role = doc.data()?["role"] ?? "User";
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +66,47 @@ class Homescreen extends StatelessWidget {
               },
             ),
             const Divider(),
+            // Show Add Event only for Locals
+            if (role == "Local")
+              ListTile(
+                leading: const Icon(Icons.event),
+                title: const Text("Add Event"),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EventAdder()));
+                },
+              ),
+            if (role == "User")
+              ListTile(
+                leading: const Icon(Icons.visibility),
+                title: const Text("View Events"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const EventViewer(),
+                    ),
+                  );
+                },
+              ),
             ListTile(
               leading: const Icon(Icons.map),
               title: const Text('Coordinates'),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LocationScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LocationScreen()));
               },
             ),
             ListTile(
               leading: const Icon(Icons.audiotrack_sharp),
               title: const Text('Audio'),
               onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => const audio()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const audio()));
               },
             ),
             ListTile(
@@ -63,8 +121,10 @@ class Homescreen extends StatelessWidget {
               leading: const Icon(Icons.menu_book),
               title: const Text('Manuscripts'),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Manuscripts()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Manuscripts()));
               },
             ),
           ],
@@ -73,7 +133,7 @@ class Homescreen extends StatelessWidget {
       body: Center(
         child: Text(
           user != null
-              ? "Welcome, ${user.displayName ?? user.email}!"
+              ? "Welcome, ${user.displayName}!"
               : "Welcome to Sikkim App!",
           style: const TextStyle(fontSize: 20),
         ),
