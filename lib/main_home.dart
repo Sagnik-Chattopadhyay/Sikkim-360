@@ -8,8 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sikkim_app/event_adder.dart';
 import 'package:sikkim_app/event_viewer.dart';
-
-
+import 'package:sikkim_app/monastery_classifier.dart'; // ✅ Added import
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -125,6 +124,18 @@ class _HomescreenState extends State<Homescreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const Manuscripts()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text('Monastery Classifier'), // ✅ New feature
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MonasteryClassifier(),
+                  ),
+                );
               },
             ),
           ],
