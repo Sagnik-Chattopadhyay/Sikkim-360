@@ -25,7 +25,7 @@ class _ManuscriptsState extends State<Manuscripts> {
   // ✅ Initialize Gemini
   final GenerativeModel _gemini = GenerativeModel(
     model: 'gemini-1.5-flash',
-    apiKey: "AIzaSyCN-V9NFY8ikUGoZNAUc3K-7R5IAAqwjQQ", // 🔑 Replace with your Gemini API key
+    apiKey: "AIzaSyCN-V9NFY8ikUGoZNAUc3K-7R5IAAqwjQQ", //
   );
 
   Future<void> _pickImage(ImageSource source) async {
