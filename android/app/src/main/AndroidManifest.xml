@@ -1,15 +1,14 @@
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sikkim_app">
 
     <!-- 🌍 Location permissions -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+   
 
     <!-- 📸 Camera permission -->
-    <uses-permission android:name="android.permission.CAMERA"/>
 
     <!-- 🖼️ Scoped storage (Android 13+, API 33+) -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED"/>
 
@@ -19,6 +18,22 @@
 
     <!-- 🌐 Internet permission for API calls (Gemini, translation) -->
     <uses-permission android:name="android.permission.INTERNET"/>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Location (already present, keep it) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <!-- 📸 Camera & Storage / Media permissions -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- For Android 13+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <!-- For older Android versions -->
+  
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29"/>
+
 
     <application
         android:label="sikkim_app"
@@ -38,7 +53,9 @@
 
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme"/>
+
+                android:resource="@style/NormalTheme" />
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -48,10 +65,17 @@
         </activity>
 
         <!-- ⚡ Flutter embedding -->
-        <meta-data android:name="flutterEmbedding" android:value="2"/>
-    </application>
+     
 
     <!-- 📝 Required for text processing -->
+
+        <!-- Don't delete the meta-data below -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+
+
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>

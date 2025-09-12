@@ -45,6 +45,7 @@ app.*.map.json
 /android/app/release
 
 #models
+
 assets/
 
 # Ignore Python virtual environments
@@ -52,6 +53,17 @@ summarizer-env/
 venv/
 .env/
 
-# Ignore system files
+
+assets/audio
+assets/models
+
+lib/firebase_options.dart
+
+# Ignore virtual environments
+python_backend/summarizer-env/
+summarizer-env/
+venv/
+.env/
+
 __pycache__/
 *.pyc
