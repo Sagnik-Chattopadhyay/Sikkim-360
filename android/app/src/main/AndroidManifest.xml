@@ -1,3 +1,24 @@
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.sikkim_app">
+
+    <!-- 🌍 Location permissions -->
+   
+
+    <!-- 📸 Camera permission -->
+
+    <!-- 🖼️ Scoped storage (Android 13+, API 33+) -->
+    
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED"/>
+
+    <!-- 📂 Backward compatibility for < Android 13 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
+
+    <!-- 🌐 Internet permission for API calls (Gemini, translation) -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Location (already present, keep it) -->
@@ -9,10 +30,10 @@
     <!-- For Android 13+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
     <!-- For older Android versions -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32"/>
+  
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29"/>
+
 
     <application
         android:label="sikkim_app"
@@ -32,13 +53,21 @@
 
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
+
                 android:resource="@style/NormalTheme" />
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
+
+        <!-- ⚡ Flutter embedding -->
+     
+
+    <!-- 📝 Required for text processing -->
 
         <!-- Don't delete the meta-data below -->
         <meta-data
@@ -46,11 +75,12 @@
             android:value="2" />
     </application>
 
-    <!-- Flutter engine text processing -->
+
     <queries>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+
 </manifest>

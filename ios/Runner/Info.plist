@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+    <!-- New keys for Manuscripts feature -->
+    <key>NSCameraUsageDescription</key>
+    <string>We need camera access to capture manuscript images.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need photo library access to select manuscript images.</string>
 </dict>
 </plist>

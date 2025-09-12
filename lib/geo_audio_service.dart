@@ -11,6 +11,7 @@ class GeoAudioService {
   // Predefined coordinates and audio file names
   final List<Map<String, dynamic>> _geoPoints = [
     {
+<
       'latitude': 22.5905452,
       'longitude': 88.466225,
       'audio': 'sculpture1.mp3',
@@ -29,6 +30,7 @@ class GeoAudioService {
       'latitude': 22.5905721,
       'longitude': 88.4662491,
       'audio': 'sculpture4.mp3',
+
     },
   ];
 

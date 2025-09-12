@@ -45,6 +45,15 @@ app.*.map.json
 /android/app/release
 
 #models
+
+assets/
+
+# Ignore Python virtual environments
+summarizer-env/
+venv/
+.env/
+
+
 assets/audio
 assets/models
 
@@ -55,5 +64,6 @@ python_backend/summarizer-env/
 summarizer-env/
 venv/
 .env/
+
 __pycache__/
 *.pyc
